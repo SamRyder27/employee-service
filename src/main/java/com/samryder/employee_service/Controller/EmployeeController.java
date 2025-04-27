@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.samryder.employee_service.Model.Employee;
 import com.samryder.employee_service.Service.EmployeeService;
@@ -56,6 +57,15 @@ public class EmployeeController {
 	public String updateEmployee (@PathVariable Long id, @RequestBody Employee employee) {
 		
 		return employeeService.updateEmployee(id, employee);
+	}
+	
+	@GetMapping ("employees/search")
+	public ModelAndView searchByName (String keyword) {
+		List<Employee> searchResult = employeeService.searchByName(keyword);
+		
+		ModelAndView searchModel = new ModelAndView();
+		searchModel.addObject("Results", searchResult);
+		return searchModel;
 	}
 
 }

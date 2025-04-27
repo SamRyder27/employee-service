@@ -72,4 +72,10 @@ public class EmployeeServiceImp implements EmployeeService {
 		return "Updated Successfully";
 	}
 
+
+	@Override
+	public List<Employee> searchByName(String keyword) {
+		return employeeRepository.search(keyword);
+	}
+
 }
