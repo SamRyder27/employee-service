@@ -10,5 +10,6 @@ public interface EmployeeService{
 	List<Employee> readEmployees ();
 	boolean deleteEmployee (Long id);
 	String updateEmployee (Long id, Employee employee);
+	List<Employee> searchByName (String keyword);
 	
 }

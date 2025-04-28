@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.samryder.employee_service.Model.Employee;
 import com.samryder.employee_service.Service.EmployeeService;
@@ -49,13 +52,22 @@ public class EmployeeController {
 		if (employeeService.deleteEmployee(id))
 			return "Deleted Successfully";
 		return "ID Not found";
-		
 	}
 	
 	@PutMapping("employees/{id}")
 	public String updateEmployee (@PathVariable Long id, @RequestBody Employee employee) {
 		
 		return employeeService.updateEmployee(id, employee);
+	}
+	
+	@GetMapping ("employees/search")
+	public ResponseEntity<List<Employee>> searchByName (@RequestParam("key") String keyword) {
+		System.out.println("Searching for keyword: " + keyword);  // log
+		List<Employee> result = employeeService.searchByName(keyword);
+		System.out.println("Found employees: " + result.size());  // log
+       //ModelAndView mav = new ModelAndView("search");
+        //mav.addObject("result", result);
+		return ResponseEntity.ok(result);
 	}
 
 }
