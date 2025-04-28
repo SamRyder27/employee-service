@@ -79,7 +79,7 @@ public class EmployeeServiceImp implements EmployeeService {
 	@Override
 	public List<Employee> searchByName(String keyword) {
 		
-		List<Employee> emplist = Collections.emptyList(); 
+		List<Employee> emplist = new ArrayList<>();
 		//try {
 			 emplist = employeeRepository.search(keyword);	
 		//}

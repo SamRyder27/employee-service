@@ -22,8 +22,9 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long>{
             //+ " OR c.address LIKE '%' || :keyword || '%'") 
 	
 	//@Query (value = "SELECT e FROM EmployeeEntity e WHERE e.name LIKE %:keyword% OR e.email LIKE %:keyword%")
-	@Query (value = "SELECT e FROM EmployeeEntity e WHERE e.name LIKE CONCAT('%', :keyword, '%') OR e.email LIKE CONCAT('%', :keyword, '%')")
-	@Transactional (readOnly = true)
+	//@Query (value = "SELECT e FROM EmployeeEntity e WHERE e.name LIKE CONCAT('%', :keyword, '%') OR e.email LIKE CONCAT('%', :keyword, '%')")
+	@Query(value = "SELECT * FROM employeedb WHERE name LIKE CONCAT('%', :keyword, '%') OR email LIKE CONCAT('%', :keyword, '%')", nativeQuery = true)
+	//@Transactional (readOnly = true)
 	List<Employee> search (@Param("keyword") String keyword);
 	
 }
