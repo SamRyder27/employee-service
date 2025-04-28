@@ -1,10 +1,13 @@
 package com.samryder.employee_service.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.samryder.employee_service.Model.Employee;
@@ -75,7 +78,15 @@ public class EmployeeServiceImp implements EmployeeService {
 
 	@Override
 	public List<Employee> searchByName(String keyword) {
-		return employeeRepository.search(keyword);
+		
+		List<Employee> emplist = Collections.emptyList(); 
+		//try {
+			 emplist = employeeRepository.search(keyword);	
+		//}
+//		catch (EmptyResultDataAccessException e) {
+//			System.out.println("No employees found matching the keyword.");
+//			}
+		return emplist;
 	}
 
 }
