@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.samryder.employee_service.Entity.EmployeeEntity;
+import com.samryder.employee_service.Exceptions.ResourceNotFoundException;
 import com.samryder.employee_service.Model.Employee;
 import com.samryder.employee_service.Service.EmployeeService;
 import com.samryder.employee_service.Service.EmployeeServiceImp;
@@ -36,8 +38,8 @@ public class EmployeeController {
 	//List<Employee> employees = new ArrayList<>();
 	@GetMapping("employees")//its working now
 	public  List<Employee> getAllemployess () {
-			
-		return employeeService.readEmployees(); 
+			List <Employee> allemp = employeeService.readEmployees();
+		return allemp;
 	}
 	
 	@PostMapping("employees")
@@ -61,9 +63,11 @@ public class EmployeeController {
 	}
 	
 	@GetMapping ("employees/search")
-	public ResponseEntity<List<Employee>> searchByName (@RequestParam("key") String keyword) {
+	public ResponseEntity<List<Employee>> searchByName (@RequestParam String keyword) throws ResourceNotFoundException
+	{
 		System.out.println("Searching for keyword: " + keyword);  // log
-		List<Employee> result = employeeService.searchByName(keyword);
+		List <Employee> result = employeeService.searchByName(keyword);
+		
 		System.out.println("Found employees: " + result.size());  // log
        //ModelAndView mav = new ModelAndView("search");
         //mav.addObject("result", result);

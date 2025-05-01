@@ -2,6 +2,8 @@ package com.samryder.employee_service.Service;
 
 import java.util.List;
 import org.springframework.context.annotation.Bean;
+
+import com.samryder.employee_service.Entity.EmployeeEntity;
 import com.samryder.employee_service.Model.Employee;
 
 public interface EmployeeService{

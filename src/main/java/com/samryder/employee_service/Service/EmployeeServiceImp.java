@@ -79,14 +79,26 @@ public class EmployeeServiceImp implements EmployeeService {
 	@Override
 	public List<Employee> searchByName(String keyword) {
 		
-		List<Employee> emplist = new ArrayList<>();
+		List<EmployeeEntity> queryResult = new ArrayList<>();
 		//try {
-			 emplist = employeeRepository.search(keyword);	
+			 queryResult = employeeRepository.search(keyword);
+			 List<Employee> result = new ArrayList<>();
+			 
+			 for (EmployeeEntity empEntity : queryResult) {
+				 Employee emp2 = new Employee();
+				 emp2.setId(empEntity.getId());
+				 emp2.setName(empEntity.getName());
+				 emp2.setEmail(empEntity.getEmail());
+				 emp2.setPhone(empEntity.getPhone());
+				 result.add(emp2);
+				 
+			 }
+			 
 		//}
 //		catch (EmptyResultDataAccessException e) {
 //			System.out.println("No employees found matching the keyword.");
 //			}
-		return emplist;
+		return result;
 	}
 
 }
